@@ -1,0 +1,6 @@
+@ASPNet8ExampleAPI_HostAddress = http://localhost:5235
+
+GET {{ASPNet8ExampleAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
