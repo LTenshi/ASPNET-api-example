@@ -2,7 +2,7 @@
 
 namespace ASPNet8ExampleAPI.Services
 {
-    internal interface IAdvancedService
+    public interface IAdvancedService
     {
         IEnumerable<VideoGameDTO> GetVideoGames();
 

@@ -1,7 +1,9 @@
 ﻿using ASPNet8ExampleAPI.Models.DTO;
 using ASPNet8ExampleAPI.Models.Enums;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Net;
 
 namespace ASPNet8ExampleAPI.Services
 {
@@ -70,12 +72,14 @@ namespace ASPNet8ExampleAPI.Services
 
             var foundReviews = new List<DisplayReviewDTO>();
 
-            foreach (var reviewId in found.ReviewIds) {
+            foreach (var reviewId in found.ReviewIds)
+            {
                 var reviewFound = reviews.Find((rev) => rev.ID == reviewId);
                 if (reviewFound != null)
                 {
-                    var reviewerFound = reviewers.Find((reviewer) =>  reviewer.ID == reviewFound.ReviewerId);
-                    if (reviewerFound != null) {
+                    var reviewerFound = reviewers.Find((reviewer) => reviewer.ID == reviewFound.ReviewerId);
+                    if (reviewerFound != null)
+                    {
                         foundReviews.Add(new DisplayReviewDTO(reviewFound, reviewerFound));
                     }
                 }
@@ -89,7 +93,7 @@ namespace ASPNet8ExampleAPI.Services
             return foundReviews;
         }
 
-        public VideoGameDTO GetVideoGame(string gameId)
+        public VideoGameDTO? GetVideoGame(string gameId)
         {
             if (gameId == null)
             {
@@ -98,11 +102,23 @@ namespace ASPNet8ExampleAPI.Services
 
             var id = int.Parse(gameId);
 
-            return videoGames.Where((videoGame) => videoGame.ID == id).First();
+            var found = videoGames.Where((videoGame) => videoGame.ID == id);
+
+            if (!found.Any())
+            {
+                return null;
+            }
+
+            return found.First();
         }
 
-        public IEnumerable<VideoGameDTO> GetVideoGames()
+        public IEnumerable<VideoGameDTO>? GetVideoGames()
         {
+            if (videoGames.Count == 0)
+            {
+                return null;
+            }
+
             return videoGames;
         }
     }

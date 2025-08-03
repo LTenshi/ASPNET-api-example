@@ -21,9 +21,9 @@ namespace ASPNet8ExampleAPI.Controllers
         /// </summary>
         /// <returns>Returns a very simple string back to the user</returns>
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
-            return "You are on the API address right now!";
+            return Ok("You are on the API address right now!");
         }
 
         /// <summary>
@@ -31,15 +31,19 @@ namespace ASPNet8ExampleAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public string GetExample()
+        public IActionResult GetExample()
         {
-            return _simpleService.GetExampleText();
+            return Ok(_simpleService.GetExampleText());
         }
 
+        /// <summary>
+        /// Returns an array of objects, in this case they contain movie information
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<ExampleObjectDTO> GetExampleArrayObject()
+        public IActionResult GetExampleArrayObject()
         {
-            return _simpleService.GetExampleArrayObject();
+            return Ok(_simpleService.GetExampleArrayObject());
         }
 
         /// <summary>
@@ -48,9 +52,9 @@ namespace ASPNet8ExampleAPI.Controllers
         /// <param name="contentString"></param>
         /// <returns></returns>
         [HttpPost]
-        public string PostExample(string contentString)
+        public IActionResult PostExample(string contentString)
         {
-            return _simpleService.PostExampleText(contentString);
+            return Ok(_simpleService.PostExampleText(contentString));
         }
 
         /// <summary>
@@ -58,9 +62,10 @@ namespace ASPNet8ExampleAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         [HttpPost]
-        public void PostMovieObject(ExampleObjectDTO movie)
+        public IActionResult PostMovieObject(ExampleObjectDTO movie)
         {
             _simpleService.PostMovieExample(movie);
+            return Ok();
         }
     }
 }

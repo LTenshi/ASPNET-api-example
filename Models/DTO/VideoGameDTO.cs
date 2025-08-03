@@ -2,6 +2,8 @@
 {
     public class VideoGameDTO(int id, string title, string description, List<int> reviewIds)
     {
+        public VideoGameDTO(int id) : this(id, "", "", []) {}
+
         public int ID { get; set; } = id;
         public string Title { get; set; } = title;
         public string Description { get; set; } = description;
